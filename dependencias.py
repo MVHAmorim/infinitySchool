@@ -1,11 +1,14 @@
 from repositorio_produto import RepositorioProduto
 from repositorio_cardapio import RepositorioCardapio
+from dotenv import dotenv_values
 
-NOME_DB = 'db.sqlite'
+ENV = dotenv_values()
 
 def obter_repo_cardapio():
-    return RepositorioCardapio(NOME_DB)
+    return RepositorioCardapio(ENV['NOME_DB'])
 
 
 def obter_repo_produto():
-    return RepositorioProduto(NOME_DB)
+    return RepositorioProduto(ENV['NOME_DB'])
+
+print (ENV)
