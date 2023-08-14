@@ -10,5 +10,3 @@ def obter_repo_cardapio():
 
 def obter_repo_produto():
     return RepositorioProduto(ENV['NOME_DB'])
-
-print (ENV)
