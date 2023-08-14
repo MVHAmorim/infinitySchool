@@ -1,60 +1,103 @@
-import db
 import dtos
 from util import Utilidades
 from fastapi import status, HTTPException, APIRouter, Depends
+from dependencias import obter_repo_cardapio, obter_repo_produto
+from repositorio_produto import RepositorioProduto
+from repositorio_cardapio import RepositorioCardapio
 
 cardapios = APIRouter()
 
 @cardapios.get('/cardapio')
-async def listar_cardapios():
-      
-        return db.cardapios.items()
+async def listar_cardapios(repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):      
+        return repCardapio.listar_cardapio()
 
 @cardapios.get('/cardapio/{codigo}')
-async def consultar_cardapio(codigo: str):
-    if codigo in db.cardapios:
-        return db.cardapios[codigo]
-    else:
+async def consultar_cardapio(codigo: str,
+    repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):    
+    
+    retorno = repCardapio.consultar_cardapio(codigo)
+    
+    if not retorno:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Cardápio não encontrado')
+            detail='Código de cardápio não existe')
+    
+    return retorno
 
 
 @cardapios.post('/cardapio/', status_code=status.HTTP_201_CREATED)
-async def cadastrar_cardapio(cardapio: dtos.CardapioIn, util: Utilidades = Depends(Utilidades)) -> dtos.Cardapio:
-    codigo = util.criar_codigo(cardapio.nome)
-    db.cardapios[codigo] = cardapio.model_dump()
-    db.cardapios[codigo]['codigo'] = codigo
-    return db.cardapios[codigo]
+async def criar_cardapio(nome: str, descricao: str, util: Utilidades = Depends(Utilidades),
+    repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):
+
+    codigo = util.criar_codigo(nome)
+    retorno = repCardapio.criar_cardapio(codigo, nome, descricao)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao criar o cardápio')
+
+    return repCardapio.consultar_cardapio(codigo)
 
 
 @cardapios.put('/cardapio/{codigo}')
-async def alterar_cardapio(codigo: str, cardapio: dtos.CardapioIn):
-    if codigo in db.cardapios:
-        db.cardapios[codigo] = db.cardapios.model_dump()
-        return db.cardapios[codigo]
-    else:
+async def alterar_cardapio(codigo: str, nome: str, descricao: str,
+    repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):
+
+    retorno = repCardapio.consultar_cardapio(codigo)
+    
+    if not retorno:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Cardápio não cadastrado')
+            detail='Código de cardápio inexistente')
+    
+    retorno = repCardapio.alterar_cardapio(codigo, nome, descricao)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Cardápio não alterado')
+    
+    return repCardapio.consultar_cardapio(codigo)
 
 
 @cardapios.delete('/cardapio/{codigo}')
-async def remover_produto(codigo: str):
-    if codigo in db.cardapios:
-        return db.cardapios.pop(codigo)
-    else:
+async def deletar_cardapio(codigo: str,
+    repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):
+
+    retorno = repCardapio.consultar_cardapio(codigo)
+    
+    if not retorno:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Cardápio inexistente')
+            detail='Código de cardápio inexistente')
+
+    deletado = repCardapio.deletar_cardapio(codigo)
     
+    if not deletado:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao deletar cardápio')
+    
+    return retorno
+
 
 @cardapios.patch('/cardapio/{id}')
-async def alterar_descricao_cardapio(codigo: int, descricao: dtos.Descricao):
-    if codigo in db.cardapios:
-        db.cardapios[codigo]['descricao'] = descricao.preco
-        return db.cardapios[codigo]
-    else:
+async def alterar_descricao_cardapio(codigo: str, descricao: str,
+    repCardapio: RepositorioCardapio = Depends(obter_repo_cardapio)):
+
+    retorno = repCardapio.consultar_cardapio(codigo)
+    
+    if not retorno:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Cardápio não cadastrado')
+            detail='Código de cardápio inexistente')
+
+    retorno = repCardapio.alterar_descricao_cardapio(codigo, descricao)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao alterar a descrição do cardápio')
+    
+    return retorno

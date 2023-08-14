@@ -3,6 +3,9 @@ import dtos
 from typing import Optional
 from util import Utilidades
 from fastapi import status, APIRouter, HTTPException, Depends
+from dependencias import obter_repo_cardapio, obter_repo_produto
+from repositorio_produto import RepositorioProduto
+from repositorio_cardapio import RepositorioCardapio
 
 produtos = APIRouter()
 
@@ -17,42 +20,75 @@ async def listar_produtos(cardapio: Optional[str] = -1, preco_min: Optional[int]
     
 
 @produtos.get('/produto/{id}')
-async def consultar_produto(id: int):
-    if id in db.produtos:
-        return db.produtos[id]
-    else:
+async def consultar_produto(codigo: str,
+    repProduto: RepositorioProduto = Depends(obter_repo_produto)):
+
+    retorno = repProduto.consultar_produto(codigo)
+
+    if not retorno:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail='Produto não encontrado')
 
+    return retorno
+
 
 @produtos.post('/produto/', status_code=status.HTTP_201_CREATED )
-async def cadastrar_produto(produto: dtos.ProdutoIn, util: Utilidades = Depends(Utilidades)) -> dtos.Produto:
-    codigo = util.criar_codigo(produto.nome)
-    db.produtos[codigo] = produto.model_dump()
-    db.produtos[codigo]['codigo'] = codigo
-    return db.produtos[codigo]
+async def cadastrar_produto(nome: str, descricao: str, preco: float, 
+    restricao: str, cardapio: str, util: Utilidades = Depends(Utilidades),
+    repProduto: RepositorioProduto = Depends(obter_repo_produto)):
+
+    codigo = util.criar_codigo(nome)
+    retorno = repProduto.criar_produto(codigo, nome, descricao, preco, restricao, cardapio)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao cadastrar produto')
+
+    return retorno
 
 
 @produtos.put('/produto/{id}')
-async def alterar_produto(id: int, aluno: dtos.ProdutoIn):
-    if id in db.produtos:
-        db.produtos[id] = aluno.model_dump()
-        return db.produtos[id]
-    else:
+async def alterar_produto(codigo: str, nome: str, descricao: str, preco: float, restricao: str,
+    cardapio: str, repProduto: RepositorioProduto = Depends(obter_repo_produto)):
+
+    consulta = repProduto.consultar_produto(codigo)
+
+    if not consulta:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Produto não cadastrado')
+            detail='Produto não encontrado')
+
+    retorno = repProduto.alterar_produto(codigo, nome, descricao, preco, restricao, cardapio)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao alterar produto')
+
+    return repProduto.consultar_produto(codigo)
 
 
 @produtos.delete('/produto/{id}')
-async def remover_produto(id: int):
-    if id in db.produtos:
-        return db.produtos.pop(id)
-    else:
+async def deletar_produto(codigo: str,
+    repProduto: RepositorioProduto = Depends(obter_repo_produto)):
+
+    consulta = repProduto.consultar_produto(codigo)
+
+    if not consulta:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Produto inexistente')
+            detail='Produto não encontrado')
+
+    retorno = repProduto.deletar_produto(codigo)
+
+    if not retorno:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Erro ao deletar produto')
+
+    return consulta
 
 
 @produtos.patch('/produto/{id}')

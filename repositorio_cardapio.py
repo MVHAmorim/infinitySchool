@@ -40,6 +40,16 @@ class RepositorioCardapio:
         return alterados
 
 
+    def alterar_descricao_cardapio(self, codigo: str, descricao: str):
+        sql = "UPDATE cardapio SET descricao = ? WHERE codigo = ? "
+        self.abrir_conexao()        
+        self.cursor.execute(sql, (descricao, codigo))
+        self.connection.commit()        
+        alterados = self.obter_mudancas()
+        self.fechar_conexao()
+        return alterados
+
+
     def deletar_cardapio(self, codigo: str):
         sql = "DELETE FROM cardapio WHERE codigo = ? "
         self.abrir_conexao()

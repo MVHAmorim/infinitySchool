@@ -41,6 +41,16 @@ class RepositorioProduto:
         return alterados
 
 
+    def alterar_preco_produto(self, codigo:str, preco: float):
+        sql = "UPDATE produto SET preco = ? WHERE codigo = ? "
+        self.abrir_conexao()
+        self.cursor.execute(sql, (preco, codigo))
+        self.connection.commit()
+        alterados = self.obter_mudancas()
+        self.fechar_conexao()
+        return alterados
+
+
     def deletar_produto(self, codigo: str):
         sql = "DELETE FROM produto WHERE codigo = ? "
         self.abrir_conexao()
