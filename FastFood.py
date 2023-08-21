@@ -14,3 +14,6 @@ app.include_router(rCardapios.cardapios)
 
 #s: str
 #s.isalmun()
+
+# Comando para deploy no render.com
+# gunicorn --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:10000 --workers 2 api_main:app

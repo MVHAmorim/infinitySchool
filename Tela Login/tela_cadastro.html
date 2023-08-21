@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       }
+       body{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("https://img.freepik.com/fotos-gratis/uma-pintura-de-um-lago-de-montanha-com-uma-montanha-ao-fundo_188544-9126.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+       div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        height: 50%;
+        flex-direction: column;
+        gap: 1rem;
+       }
+
+       button{
+        width: 20%;
+        padding: 0.4rem;
+        background-color: transparent;
+        border: none;
+        box-shadow: 1px 3px 5px black;
+        border-radius: 10px;
+       }
+
+       .entrada{
+        width: 30%;
+        padding: 0.4rem;
+        border: none;
+        box-shadow: 1px 3px 5px black;
+        outline: none;
+       }
+       .botoes_radio{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        height: 15%;
+       
+       }
+    </style>
+</head>
+<body>
+
+    <div>
+        <!--nome, senha, email, sexo, cpf -->
+    
+        <input class="entrada" id="nome" type="text"  placeholder="Digite seu nome, inimigo" >
+        <input class="entrada" id="senha" type="password" placeholder="Digite sua senha, infeliz">
+        <input class="entrada" id="email" type="email" placeholder="Digite seu email, animal">
+        <input class="entrada" id="cpf" type="number" placeholder="digite seu cpf">
+        <div class="botoes_radio">
+            <label for="radio"> Feminino 
+                <input  type="radio" name="radio">
+            </label>
+            <label for="radio"> Masculino 
+                <input type="radio" name="radio">
+            </label>
+            <label for=""> Outro
+                <input type="radio" name="radio">
+            </label>
+            
+        </div>
+        
+       
+        <button onclick="pegarDados()">Cadastrar</button>
+    </div>
+
+
+        <script>
+
+            function pegarDados(){
+                nome = document.getElementById("nome").value
+                senha = document.getElementById("senha").value
+                email = document.getElementById("email").value
+                cpf = document.getElementById("cpf").value
+                console.log(nome)
+                console.log(email)
+                console.log(cpf)
+                console.log(senha)
+            }
+
+
+        </script>
+
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html> <!-- Declaração do tipo de documento HTML -->
+<html lang="en"> <!-- Abertura da tag HTML com atributo lang definido como "en" (Inglês) -->
+
+<head> <!-- Abertura da tag HEAD, onde são definidas as informações do cabeçalho -->
+    <meta charset="UTF-8"> <!-- Definição do conjunto de caracteres como UTF-8 (Unicode) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configuração da viewport para adaptação em dispositivos móveis -->
+    <title>Document</title> <!-- Título da página, exibido na aba do navegador -->
+    <style> /* Abertura da tag STYLE, onde é definido o estilo CSS da página */
+        
+
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap'); /* Importação da fonte "Cinzel" do Google Fonts*/ 
+        
+
+        *{ /* Seletor universal: aplica o estilo a todos os elementos da página */
+            margin:0; /* Define a margem externa como zero */
+            padding: 0; /* Define o preenchimento interno como zero */
+            box-sizing: border-box; /* Define o modelo de caixa de todos os elementos como "border-box" (a largura e altura incluem padding e border) */
+        }
+
+        body{ /* Estilos aplicados ao corpo da página */
+            height: 100vh; /* Define a altura do corpo como 100% da altura da viewport */
+            background:url("https://wallpapercave.com/wp/wp9825858.jpg"); /* Define uma imagem de fundo */
+            background-size: cover; /* Faz a imagem de fundo cobrir todo o elemento sem distorções */
+            background-repeat: no-repeat; /* Impede que a imagem de fundo se repita */
+            display: flex; /* Aplica um modelo de layout flexível */
+            align-items: center; /* Alinha os itens verticalmente no centro do contêiner flexível */
+            justify-content: center; /* Alinha os itens horizontalmente no centro do contêiner flexível */
+        }
+
+        main{ /* Estilos aplicados à tag <main>, onde o conteúdo principal da página é colocado */
+            box-shadow: 1px 3px 5px black, 5px 10px 15px black, 3px 5px 50px white; /* Adiciona sombras ao elemento */
+            border-radius: 5px; /* Define o raio das bordas para criar cantos arredondados */
+            width: 30%; /* Define a largura do elemento como 30% da largura do elemento pai */
+            height: 70%; /* Define a altura do elemento como 70% da altura do elemento pai */
+            position: absolute; /* Define a posição do elemento como absoluta (é posicionado em relação ao ancestral com posição definida) -->
+            right: 150px; /* Define a distância entre o elemento e a borda direita do elemento pai */
+            backdrop-filter: blur(10px); /* Aplica um efeito de desfoque ao elemento (usado com fundo transparente) */
+            display: flex; /* Aplica um modelo de layout flexível */
+            align-items: center; /* Alinha os itens verticalmente no centro do contêiner flexível */
+            justify-content: center; /* Alinha os itens horizontalmente no centro do contêiner flexível */
+            font-family: "Cinzel",sans-serif; /* Define a fonte do texto como "Cinzel" ou uma fonte sans-serif caso não seja encontrada */
+            font-weight: bold; /* Define o peso da fonte como negrito */
+            flex-direction: column; /* Define a direção dos itens como coluna (empilhados verticalmente) */
+            gap:1rem; /* Define o espaçamento entre os elementos internos do contêiner flexível */
+        }
+
+        main input{ /* Estilos aplicados a elementos <input> dentro do elemento <main> */
+            width: 50% ; /* Define a largura do elemento como 50% da largura do elemento pai */
+            padding: 0.6rem; /* Define o preenchimento interno do elemento */
+            border: none; /* Remove a borda do elemento */
+            border-radius: 5px; /* Define o raio das bordas para criar cantos arredondados */
+            box-shadow: 1px 4px 10px black; /* Adiciona sombra ao elemento */
+        }
+
+        input::placeholder{ /* Estilos aplicados ao conteúdo do atributo "placeholder" dos elementos <input> */
+            font-family: "Cinzel",sans-serif; /* Define a fonte do texto como "Cinzel" ou uma fonte sans-serif caso não seja encontrada */
+            font-weight: 700; /* Define o peso da fonte como negrito */
+        }
+
+        main img{ /* Estilos aplicados a elementos <img> dentro do elemento <main> */
+            width: 20%; /* Define a largura do elemento como 20% da largura do elemento pai */
+        }
+        .botoes{ /* Estilos aplicados à classe "botoes" */
+            display: flex; /* Aplica um modelo de layout flexível */
+            align-items: center; /* Alinha os itens verticalmente no centro do contêiner flexível */
+            justify-content: center; /* Alinha os itens horizontalmente no centro do contêiner flexível */
+            flex-direction: column; /* Define a direção dos itens como coluna (empilhados verticalmente) */
+            gap: 1rem; /* Define o espaçamento entre os elementos internos do contêiner flexível */
+            width: 70%; /* Define a largura do elemento como 70% da largura do elemento pai */
+        }
+
+        .botoes button{ /* Estilos aplicados a elementos <button> dentro da classe "botoes" */
+            width: 50%; /* Define a largura do elemento como 50% da largura do elemento pai */
+            padding: 0.4rem; /* Define o preenchimento interno do elemento */
+            border: none; /* Remove a borda do elemento */
+            border-radius: 5px; /* Define o raio das bordas para criar cantos arredondados */
+            font-family: "Cinzel",sans-serif; /* Define a fonte do texto como "Cinzel" ou uma fonte sans-serif caso não seja encontrada */
+            font-weight: 800; /* Define o peso da fonte como negrito */
+            box-shadow: 1px 4px 10px black; /* Adiciona sombra ao elemento */
+            cursor: pointer; /* Altera o cursor para o formato de mão (cursor de link) ao passar o mouse sobre o botão */
+        }
+
+        #login{ /* Estilos aplicados ao elemento com id "login" */
+            background-color: #F23DA0; /* Define a cor de fundo como rosa */
+        }
+
+        #login:active{ /* Estilos aplicados ao elemento com id "login" quando está ativo (clicado) */
+            background-color: #f36cb6; /* Define a cor de fundo como uma tonalidade mais clara de rosa */
+        }
+
+        #cadastro{ /* Estilos aplicados ao elemento com id "cadastro" */
+            background-color: #D9626B; /* Define a cor de fundo como vermelho */
+        }
+
+        #cadastro:active{ /* Estilos aplicados ao elemento com id "cadastro" quando está ativo (clicado) */
+            background-color:#d87b83; /* Define a cor de fundo como uma tonalidade mais clara de vermelho */
+        }
+
+        button:active{ /* Estilos aplicados a todos os elementos <button> quando estão ativos (clicados) */
+            color: white; /* Define a cor do texto como branco */
+        }
+    </style>
+</head>
+<body> <!--Abertura da tag BODY, onde o conteúdo visível da página é colocado -->
+    
+    <main> <!--Abertura da tag MAIN, onde o conteúdo principal da página é colocado -->
+        
+        <p>Bem vindo ao The Game</p> <!--Parágrafo de boas-vindas -->
+            
+        <label for="">Nome:</label> <!--Rótulo para o campo de entrada de texto "Nome" -->
+            
+        <input type="text" placeholder="Usuário"> <!--Campo de entrada de texto para o usuário inserir seu nome -->
+            
+        <label for="">Senha:</label> <!--Rótulo para o campo de entrada de texto "Senha" -->
+            
+        <input type="text" placeholder="Senha"> <!-- Campo de entrada de texto para o usuário inserir sua senha -->
+        
+
+        <div class="botoes"> <!-- Div com a classe "botoes" -->
+            
+            <button id="login">Login</button> <!-- Botão de login com id "login" -->
+                
+            <button id="cadastro"><a href="http://127.0.0.1:5500/workshops/Criando%20Tela%20de%20Cadastro/tela_de_cadastro.html">Cadastrar</a></button> <!-- Botão de cadastro com id "cadastro" -->
+                
+        </div>
+    </main> <!-- Fechamento da tag MAIN -->
+</body> <!-- Fechamento da tag BODY -->
+</html> <!-- Fechamento da tag HTML -->

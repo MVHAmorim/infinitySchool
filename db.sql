@@ -26,6 +26,14 @@ CREATE TABLE IF NOT EXISTS produto (
     ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
+CREATE TABLE IF NOT EXISTS usuario (
+    nome_usuario TEXT PRIMARY KEY NOT NULL,
+    nome_completo TEXT NOT NULL UNIQUE,
+    cargo TEXT NOT NULL,
+    salt_senha BLOB NOT NULL,
+    hash_senha BLOB NOT NULL
+);
+
 INSERT INTO produto (codigo, nome, descricao, preco, restricao, cardapio) VALUES 
 ('hamburguer', 'Hamburguer', 'X-Salada', 15.90, 'padrão', 'hamburguer'),
 ('batata-frita', 'Batata Frita', 'Batata Frita Rústica', 19.90, 'vegano', 'fritura'),
