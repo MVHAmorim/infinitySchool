@@ -1,17 +1,10 @@
 # Sistema de cadastro
 #------------------------------------------------------------ 
 
-while True:
-    
-    senha = input ('Digite sua senha: ')                             
-    confSenha = input ('Redigite sua senha: ')
-    
-    if senha == confSenha:
-        print ('Senha cadastrada com sucesso!\n-------------------------------------------\n')
-        break
-    
-    elif senha != confSenha:
-        print ('Senhas não coincidem! \nReinicie o processo de cadastro.\n-------------------------------------------\n')
+email = input ('Digite seu e-mail: ')                             
+senha = input ('Redigite sua senha: ')
+
+print ('Cadastro efetuado com sucesso.\n-------------------------------------------\n')
 
 
 # Sistema de Login
@@ -20,10 +13,19 @@ while True:
 print("Sistema de Login:\n-------------------------------------------\n")
 
 while True:
-    confSenha = input("Digite a senha cadastrada: ")
-    if senha == confSenha:
-        print("Login efetuado com sucesso!")
+    logEmail = input("Digite o seu email: ")
+    logSenha = input("Digite sua senha: ")
+    
+    if senha == logSenha and email == logEmail:
+        print("\nLogin efetuado com sucesso!")
         break
     
     else:
-        print(f"Senha incorreta!.\n")
+        if senha != logSenha and email != logEmail:
+            print(f"\nEmail e senha incorretos!.\n")
+            
+        elif senha != logSenha and email == logEmail:
+            print(f"\nSenha incorreta!.\n")
+
+        elif senha == logSenha and email != logEmail:
+            print(f"\nEmail incorreto!.\n")
