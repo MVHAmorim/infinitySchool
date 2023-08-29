@@ -1,4 +1,11 @@
-numeros = [1, 2, 3, 4, 5]
-iterador = iter(numeros)
+def NomeDaFuncao():
 
-print(iterador)
+    print("Print da função")
+
+    x = 10
+
+
+
+resultado = NomeDaFuncao()
+
+print(NomeDaFuncao())

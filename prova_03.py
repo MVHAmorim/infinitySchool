@@ -33,7 +33,7 @@ Digite a sua opção: '''))
             print(f'\nA matrícula do aluno {retorno} foi excluída com sucesso!')
 
     elif opcao == 3:
-        print(f'Matricula | Nome Aluno')
+        print('Matricula | Nome Aluno')
         for chv, vl in dicAlunos.items():
             print(f'        {chv} | {vl}')
 
@@ -43,4 +43,3 @@ Digite a sua opção: '''))
 
     else:
         print('#####----->>>>> OPÇÃO INVÁLIDA! <<<<<-----#####\n')
-        
