@@ -13,7 +13,7 @@ dicionario = {num: num * 10 for num in range(1,11)}
 dicionario = dict(Modulo = 'Python', Instituicao = 'Infinity School')
 print(list(dicionario))
 
-# Retorna o valor da chave especificada entre colchetes. Caso a chave não exista, 
+# Retorna o valor da chave especificada entre colchetes. Caso a chave não exista,
 # uma exceção do tipo KeyError será lançada (print(dicionario[Chave]))
 dicionario = dict(Modulo = 'Python', Instituicao = 'Infinity School')
 print(dicionario['Modulo'])
