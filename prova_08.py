@@ -33,9 +33,10 @@ Digite a sua opção: ''')
 
     elif opcao == '2':
         nome = input('\nDigite o nome do produto que deseja alterar: ')
+        novoNome = input('\nDigite o novo nome do produto: ')
         qtd = float(input('Digite a quantidade: '))
         vlUnit = float(input('Digite o valor unitário: '))
-        print(AtualizarProduto(nome, qtd,vlUnit, dicProdutos))
+        AtualizarProduto(nome, novoNome, qtd,vlUnit, dicProdutos)
         print(totalizarLista(dicProdutos))
 
     elif opcao == '3':        
